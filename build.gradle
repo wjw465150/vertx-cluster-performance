@@ -1,0 +1,32 @@
+plugins {
+  id 'java'
+  id 'application' 
+}
+
+group = "org.wjw.vertx.performance"
+version = "1.0"
+
+description = """WJW的 Vert.x 4 Performance Test"""
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+  mavenLocal()
+  maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }  //优先使用阿里的镜像
+  mavenCentral()
+}
+
+ext {
+  vertx = [version : "4.3.7"]
+}
+
+dependencies {
+    implementation platform("io.vertx:vertx-stack-depchain:${vertx.version}")  //Vert.x Stack Depchain,集中了Vert.x的依赖版本管理,这样后面在导入Vert.x模块时就不必再填写版本号了!
+    implementation "io.vertx:vertx-core"
+
+    implementation "io.vertx:vertx-hazelcast"
+    //implementation "io.vertx:vertx-zookeeper"
+    
+}
